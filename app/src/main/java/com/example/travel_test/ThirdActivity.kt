@@ -25,15 +25,15 @@ class ThirdActivity : AppCompatActivity() {
             finish()
         }
 
-        val pageButtonClickListener = PageButtonClickListener(this, supportFragmentManager, this::class.java)
+        val lang = intent.getStringExtra("attractions_lang") ?: "zh-tw" // 使用預設值 "zh-tw" 避免空指標異常
+
+        val pageButtonClickListener = PageButtonClickListener(this, supportFragmentManager, this::class.java, lang)
         pageButtonClickListener.setupButtons(
             findViewById(R.id.page1),
             findViewById(R.id.page2),
             findViewById(R.id.page3),
-            findViewById(R.id.page4),
+            findViewById(R.id.page4)
         )
-
-        val lang = intent.getStringExtra("attractions_lang") ?: "zh-tw" // 使用預設值 "zh-tw" 避免空指標異常
 
         // 更新 Toolbar 的標題文字
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
@@ -48,7 +48,7 @@ class ThirdActivity : AppCompatActivity() {
             "vi" to "điểm thu hút khách du lịch"
         )
 
-        ToolbarHelper.setToolbarTexts(lang, findViewById(R.id.home), findViewById(R.id.news_detail), findViewById(R.id.attractions))
+        ToolbarHelper.setToolbarTexts(lang, findViewById(R.id.home), findViewById(R.id.news_detail), findViewById(R.id.attractions), findViewById(R.id.favorite_detail))
 
         when (lang) {
             "zh-tw", "zh-cn", "en", "ja", "ko", "es", "th", "vi" -> {

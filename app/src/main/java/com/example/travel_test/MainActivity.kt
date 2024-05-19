@@ -37,14 +37,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         val newsDetail = findViewById<TextView>(R.id.home)
         newsDetail.setTextColor(Color.parseColor("#00939F"))
 
-        val pageButtonClickListener = PageButtonClickListener(this, supportFragmentManager, this::class.java)
-        pageButtonClickListener.setupButtons(
-            findViewById(R.id.page1),
-            findViewById(R.id.page2),
-            findViewById(R.id.page3),
-            findViewById(R.id.page4),
-        )
-
         presenter = MainPresenter(this)
 
         // 檢查網路連接
@@ -60,7 +52,13 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             showLanguageMenu()
         }
 
-
+        val pageButtonClickListener = PageButtonClickListener(this, supportFragmentManager, this::class.java, lang)
+        pageButtonClickListener.setupButtons(
+            findViewById(R.id.page1),
+            findViewById(R.id.page2),
+            findViewById(R.id.page3),
+            findViewById(R.id.page4)
+        )
     }
 
     override fun showNewsError(message: String) {
@@ -148,6 +146,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                     findViewById<TextView>(R.id.moreButton2).text = moreButtonMap[lang]
                 }
             }
+            ToolbarHelper.setToolbarTexts(lang, findViewById(R.id.home), findViewById(R.id.news_detail), findViewById(R.id.attractions), findViewById(R.id.favorite_detail))
             true
         }
         popupMenu.show()

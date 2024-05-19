@@ -60,7 +60,7 @@ class SecondActivity : AppCompatActivity() {
             "vi" to "tin mới nhất"
         )
 
-        ToolbarHelper.setToolbarTexts(lang, findViewById(R.id.home), findViewById(R.id.news_detail), findViewById(R.id.attractions))
+        ToolbarHelper.setToolbarTexts(lang, findViewById(R.id.home), findViewById(R.id.news_detail), findViewById(R.id.attractions), findViewById(R.id.favorite_detail))
 
         when (lang) {
             "zh-tw", "zh-cn", "en", "ja", "ko", "es", "th", "vi" -> {
@@ -69,7 +69,7 @@ class SecondActivity : AppCompatActivity() {
         }
 
 
-        val pageButtonClickListener = PageButtonClickListener(this, supportFragmentManager, this::class.java)
+        val pageButtonClickListener = PageButtonClickListener(this, supportFragmentManager, this::class.java, lang)
         pageButtonClickListener.setupButtons(
             findViewById(R.id.page1),
             findViewById(R.id.page2),

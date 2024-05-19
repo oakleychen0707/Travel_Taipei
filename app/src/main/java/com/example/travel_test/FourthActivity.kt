@@ -38,6 +38,27 @@ class FourthActivity : AppCompatActivity() {
             favoriteView.layoutManager = LinearLayoutManager(this)
             favoriteView.adapter = FavoriteAdapter(favoriteAttractions)
         }
+
+        val lang = intent.getStringExtra("attractions_lang") ?: "zh-tw" // 使用預設值 "zh-tw" 避免空指標異常
+
+        // 更新 Toolbar 的標題文字
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        val titleMap = mapOf(
+            "zh-tw" to "收藏項目",
+            "zh-cn" to "收藏项目",
+            "en" to "Collection Items",
+            "ja" to "コレクションアイテム",
+            "ko" to "컬렉션 아이템",
+            "es" to "Artículos de colección",
+            "th" to "รายการคอลเลกชัน",
+            "vi" to "Vật phẩm sưu tập"
+        )
+
+        when (lang) {
+            "zh-tw", "zh-cn", "en", "ja", "ko", "es", "th", "vi" -> {
+                toolbar.title = titleMap[lang]
+            }
+        }
     }
 
     private fun showNoFavoritesDialog() {

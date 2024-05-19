@@ -4,7 +4,7 @@ import android.widget.TextView
 
 
 object ToolbarHelper {
-    fun setToolbarTexts(lang: String, homeTextView: TextView, newsDetailTextView: TextView, attractionsTextView: TextView) {
+    fun setToolbarTexts(lang: String, homeTextView: TextView, newsDetailTextView: TextView, attractionsTextView: TextView, favoriteTextView: TextView) {
 
         val homeMap = mapOf(
             "zh-tw" to "首頁",
@@ -39,8 +39,20 @@ object ToolbarHelper {
             "vi" to "điểm thu hút khách du lịch"
         )
 
+        val favoriteMap = mapOf(
+            "zh-tw" to "收藏項目",
+            "zh-cn" to "收藏项目",
+            "en" to "Collection Items",
+            "ja" to "コレクションアイテム",
+            "ko" to "컬렉션 아이템",
+            "es" to "Artículos de colección",
+            "th" to "รายการคอลเลกชัน",
+            "vi" to "Vật phẩm sưu tập"
+        )
+
         homeTextView.text = homeMap[lang]
         newsDetailTextView.text = newsDetailMap[lang]
         attractionsTextView.text = attractionsMap[lang]
+        favoriteTextView.text = favoriteMap[lang]
     }
 }
