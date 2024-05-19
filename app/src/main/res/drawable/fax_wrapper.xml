@@ -1,0 +1,7 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/fax"
+        android:width="16dp"
+        android:height="16dp"
+        android:scaleType="fitCenter" />
+</layer-list>

@@ -1,0 +1,197 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#1f4e5f"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="臺北旅遊"
+        app:titleTextColor="@android:color/white"
+        app:titleTextAppearance="@style/MyToolbarTitle" />
+
+    <ImageButton
+        android:id="@+id/exchange_language"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:srcCompat="@drawable/language" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toTopOf="@id/bottombar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f4f7f7"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/news_en"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:drawableStart="@drawable/dot_wrapper"
+                android:drawablePadding="2dp"
+                android:gravity="center_vertical"
+                android:text="NEWS"
+                android:textColor="#00939F"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:drawableStart="@drawable/news_wrapper"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:paddingBottom="16dp"
+                android:text="最新消息"
+                android:textColor="#1f4e5f"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/newsView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#f4f7f7"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_news" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <View
+                    android:id="@+id/more"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/white" />
+
+                <Button
+                    android:id="@+id/moreButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:text="更多"
+                    android:textSize="16sp"
+                    android:drawableRight="@drawable/right_wrapper"
+                    android:drawablePadding="0dp"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/button_shape" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/attractions_en"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:drawableStart="@drawable/dot_wrapper"
+                android:drawablePadding="2dp"
+                android:gravity="center_vertical"
+                android:text="ATTRACTIONS"
+                android:textColor="#00939F"
+                android:textSize="16sp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/attractions_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:drawableStart="@drawable/attractions_wrapper"
+                    android:drawablePadding="8dp"
+                    android:gravity="center_vertical"
+                    android:text="旅遊景點"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#1f4e5f"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/moreButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="更多"
+                    android:textSize="20sp"
+                    android:textColor="#1f4e5f"
+                    android:textStyle="bold"
+                    android:drawableRight="@drawable/right2_wrapper"
+                    android:drawablePadding="0dp"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="16dp"
+                    android:background="@android:color/transparent" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/attractionsView"
+                    android:layout_width="match_parent"
+                    android:layout_height="480dp"
+                    android:background="#f4f7f7"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_attraction" />
+
+                <ImageButton
+                    android:id="@+id/rightButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="4dp"
+                    android:src="@drawable/right"
+                    android:padding="8dp"
+                    android:scaleType="fitCenter"
+                    android:background="@drawable/button_shape" />
+            </FrameLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/bottombar"
+        layout="@layout/bottombar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/attractionNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:drawableStart="@drawable/oval_wrapper"
+            android:drawablePadding="4dp"
+            android:gravity="center_vertical" />
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginTop="16dp"
+                android:layout_centerHorizontal="true" />
+
+            <ImageButton
+                android:id="@+id/arrowLeft"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/transparent"
+                android:padding="16dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/left_arrow" />
+
+            <ImageButton
+                android:id="@+id/arrowRight"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="end|center_vertical"
+                android:background="@android:color/transparent"
+                android:padding="16dp"
+                android:rotation="180"
+                android:src="@drawable/left_arrow"
+                android:scaleType="fitCenter" />
+
+        </FrameLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/threedot_wrapper"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:id="@+id/attractionIntroductionTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textSize="16sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#f4f7f7"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/attractionAddressTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#1f4e5f"
+                android:drawableStart="@drawable/map_wrapper"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/attractionTelTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:textColor="#1f4e5f"
+                android:drawableStart="@drawable/phone_wrapper"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/attractionFaxTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:textColor="#1f4e5f"
+                android:drawableStart="@drawable/fax_wrapper"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/attractionEmailTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:textColor="#1f4e5f"
+                android:drawableStart="@drawable/email_wrapper"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/attractionFacebookTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:textColor="#1f4e5f"
+                android:drawableStart="@drawable/fb_wrapper"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/attractionOfficial_siteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:drawableStart="@drawable/site_wrapper"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:textColor="#0000FF" />
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

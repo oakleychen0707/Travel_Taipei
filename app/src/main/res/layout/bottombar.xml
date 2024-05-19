@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/page1"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/home"
+        app:layout_constraintEnd_toStartOf="@+id/page2"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view"
+        app:srcCompat="@drawable/home_wrapper"
+        app:layout_constraintHorizontal_weight="1" />
+
+    <TextView
+        android:id="@+id/home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="首頁"
+        android:textColor="#555555"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/page1"
+        app:layout_constraintStart_toStartOf="@+id/page1"
+        app:layout_constraintTop_toBottomOf="@+id/page1" />
+
+    <ImageButton
+        android:id="@+id/page2"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/news_detail"
+        app:layout_constraintEnd_toStartOf="@+id/page3"
+        app:layout_constraintStart_toEndOf="@+id/page1"
+        app:layout_constraintTop_toTopOf="@+id/view"
+        app:srcCompat="@drawable/news_gray"
+        app:layout_constraintHorizontal_weight="1" />
+
+    <TextView
+        android:id="@+id/news_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="最新消息"
+        android:textColor="#555555"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/page2"
+        app:layout_constraintStart_toStartOf="@+id/page2"
+        app:layout_constraintTop_toBottomOf="@+id/page2" />
+
+    <ImageButton
+        android:id="@+id/page3"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/attractions"
+        app:layout_constraintEnd_toStartOf="@+id/page4"
+        app:layout_constraintStart_toEndOf="@+id/page2"
+        app:layout_constraintTop_toTopOf="@+id/view"
+        app:srcCompat="@drawable/attractions_gray"
+        app:layout_constraintHorizontal_weight="1" />
+
+    <TextView
+        android:id="@+id/attractions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="旅遊景點"
+        android:textColor="#555555"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/page3"
+        app:layout_constraintStart_toStartOf="@+id/page3"
+        app:layout_constraintTop_toBottomOf="@+id/page3" />
+
+    <ImageButton
+        android:id="@+id/page4"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/favorite_detail"
+        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintStart_toEndOf="@+id/page3"
+        app:layout_constraintTop_toTopOf="@+id/view"
+        app:srcCompat="@drawable/heart_gray"
+        app:layout_constraintHorizontal_weight="1" />
+
+    <TextView
+        android:id="@+id/favorite_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="收藏項目"
+        android:textColor="#555555"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/page4"
+        app:layout_constraintStart_toStartOf="@+id/page4"
+        app:layout_constraintTop_toBottomOf="@+id/page4" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

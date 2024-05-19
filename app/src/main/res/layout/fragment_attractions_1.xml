@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".FragmentAttractions_1">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/attractionView_all"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f4f7f7"
+        android:padding="5dp"
+        android:paddingBottom="20dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_attraction" />
+
+</FrameLayout>

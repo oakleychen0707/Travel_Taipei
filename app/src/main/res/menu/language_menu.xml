@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_item_zh_tw"
+        android:title="繁體中文"
+        android:icon="@drawable/tw_wrapper" />
+    <item
+        android:id="@+id/menu_item_zh_cn"
+        android:title="簡體中文"
+        android:icon="@drawable/cn_wrapper"/>
+    <item
+        android:id="@+id/menu_item_en"
+        android:title="英文"
+        android:icon="@drawable/en_wrapper"/>
+    <item
+        android:id="@+id/menu_item_ja"
+        android:title="日文"
+        android:icon="@drawable/ja_wrapper"/>
+    <item
+        android:id="@+id/menu_item_ko"
+        android:title="韓文"
+        android:icon="@drawable/ko_wrapper"/>
+    <item
+        android:id="@+id/menu_item_es"
+        android:title="西班牙文"
+        android:icon="@drawable/es_wrapper"/>
+<!--    <item-->
+<!--        android:id="@+id/menu_item_id"-->
+<!--        android:title="印尼文" />-->   <!--API不支援印尼文 />-->
+    <item
+        android:id="@+id/menu_item_th"
+        android:title="泰文"
+        android:icon="@drawable/th_wrapper"/>
+    <item
+        android:id="@+id/menu_item_vi"
+        android:title="越南文"
+        android:icon="@drawable/vi_wrapper"/>
+</menu>
