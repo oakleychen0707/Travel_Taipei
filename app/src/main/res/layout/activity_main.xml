@@ -145,17 +145,17 @@
                 <Button
                     android:id="@+id/moreButton2"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:text="更多"
-                    android:textSize="20sp"
-                    android:textColor="#1f4e5f"
-                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="16dp"
+                    android:background="@android:color/transparent"
                     android:drawableRight="@drawable/right2_wrapper"
                     android:drawablePadding="0dp"
                     android:gravity="center_vertical"
-                    android:layout_gravity="end|center_vertical"
-                    android:layout_marginEnd="16dp"
-                    android:background="@android:color/transparent" />
+                    android:text="更多"
+                    android:textColor="#1f4e5f"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
             </FrameLayout>
 
             <FrameLayout
