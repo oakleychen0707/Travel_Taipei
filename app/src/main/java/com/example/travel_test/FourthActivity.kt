@@ -1,8 +1,6 @@
 package com.example.travel_test
 
-import android.app.Activity
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -105,6 +103,7 @@ class FourthActivity : AppCompatActivity() {
         inner class FavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             private val attractionImageView: ImageView = itemView.findViewById(R.id.attractionImageView)
             private val attractionTelTextView: TextView = itemView.findViewById(R.id.attractionTelTextView)
+            private val favoriteButton: ImageButton = itemView.findViewById(R.id.favoriteButton)
 
             init {
                 itemView.setOnClickListener {
@@ -112,6 +111,7 @@ class FourthActivity : AppCompatActivity() {
                     val intent = attraction.createAttractionIntent(itemView.context)
                     itemView.context.startActivity(intent)
                 }
+                favoriteButton.visibility = View.GONE
             }
 
             fun Attraction.createAttractionIntent(context: Context): Intent {

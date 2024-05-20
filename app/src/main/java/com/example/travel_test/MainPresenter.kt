@@ -12,13 +12,17 @@ class MainPresenter(private val view: MainActivity) : MainContract.Presenter {
     private val newservice: NewsService
 
     init {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://www.travel.taipei/open-api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        val retrofit = createRetrofitInstance()
 
         service = retrofit.create(AttractionsService::class.java)
         newservice = retrofit.create(NewsService::class.java)
+    }
+
+    private fun createRetrofitInstance(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("https://www.travel.taipei/open-api/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
     }
 
     override fun getAttractions(lang: String) {
@@ -64,7 +68,7 @@ class MainPresenter(private val view: MainActivity) : MainContract.Presenter {
             }
         })
     }
-
 }
+
 
 
