@@ -16,18 +16,13 @@ import com.squareup.picasso.Picasso
 
 
 class FragmentAttractions_1 : Fragment() {
-
-
     private lateinit var presenter: MainContract.Presenter
     private lateinit var attractionsView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val lang = arguments?.getString("attractions_lang", "zh-tw") ?: "zh-tw"
-
         presenter = ThirdPresenter(this)
-
         if (!NetworkUtils.isNetworkConnected(requireActivity())) {
             NetworkUtils.showNetworkErrorDialog(requireActivity())
         } else {
@@ -50,24 +45,21 @@ class FragmentAttractions_1 : Fragment() {
 
     fun showAttractions(attractions: List<Attraction>) {
         for (attraction in attractions) {
-//            Log.d("Attraction", attraction.name)
-//            Log.d("Attraction", attraction.introduction)
-//            Log.d("Language Selected", "Selected Language: $lang")
+            // Log.d("Attraction", attraction.name)
+            // Log.d("Attraction", attraction.introduction)
+            // Log.d("Language Selected", "Selected Language: $lang")
         }
         attractionsView.adapter = AttractionAdapter_all(attractions)
     }
 
-
     class AttractionAdapter_all(private val attractions: List<Attraction>) : RecyclerView.Adapter<AttractionAdapter_all.AttractionViewHolder>() {
-
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AttractionViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_attraction, parent, false)
             return AttractionViewHolder(view)
         }
 
         override fun onBindViewHolder(holder: AttractionViewHolder, position: Int) {
-            val attraction = attractions[position]
-            holder.bind(attraction)
+            holder.bind(attractions[position])
         }
 
         override fun getItemCount(): Int {
@@ -82,10 +74,12 @@ class FragmentAttractions_1 : Fragment() {
             private var isFavorite: Boolean = false
 
             init {
+                setupClickListeners()
+            }
+
+            private fun setupClickListeners() {
                 itemView.setOnClickListener {
-                    println("Attractions 點擊了")
                     if (::attraction.isInitialized) {
-                        println("初始化")
                         val intent = attraction.createAttractionIntent(itemView.context)
                         itemView.context.startActivity(intent)
                     }
@@ -93,23 +87,23 @@ class FragmentAttractions_1 : Fragment() {
 
                 favoriteButton.setOnClickListener {
                     isFavorite = !isFavorite
-                    Log.d("FavoriteButton", "isFavorite: $isFavorite")
+                    updateFavoriteButtonState()
+                }
+            }
 
-                    // 設置收藏圖標
-                    val favoriteIcon = if (isFavorite) R.drawable.heartred_wrapper else R.drawable.heart_wrapper
-                    Log.d("FavoriteButton", "Setting favorite icon: $favoriteIcon")
-                    favoriteButton.setImageResource(favoriteIcon)
+            private fun updateFavoriteButtonState() {
+                val favoriteIcon = if (isFavorite) R.drawable.heartred_wrapper else R.drawable.heart_wrapper
+                favoriteButton.setImageResource(favoriteIcon)
+                val message = if (isFavorite) "已收藏項目: ${attraction.name}" else "取消收藏項目: ${attraction.name}"
+                Log.d("FavoriteButton", message)
+                updateFavoritesList()
+            }
 
-                    // 打印收藏的項目信息
-                    val message = if (isFavorite) "已收藏項目: ${attraction.name}" else "取消收藏項目: ${attraction.name}"
-                    Log.d("FavoriteButton", message)
-
-                    // 更新收藏列表
-                    if (isFavorite) {
-                        FavoritesManager.addFavorite(attraction)
-                    } else {
-                        FavoritesManager.removeFavorite(attraction)
-                    }
+            private fun updateFavoritesList() {
+                if (isFavorite) {
+                    FavoritesManager.addFavorite(attraction)
+                } else {
+                    FavoritesManager.removeFavorite(attraction)
                 }
             }
 
@@ -131,34 +125,38 @@ class FragmentAttractions_1 : Fragment() {
 
             fun bind(attraction: Attraction) {
                 this.attraction = attraction
+                bindAttractionDetails()
+                bindAttractionImage()
+                bindFavoriteButton()
+            }
 
+            private fun bindAttractionDetails() {
                 with(itemView) {
                     findViewById<TextView>(R.id.attractionNameTextView).text = attraction.name
                     findViewById<TextView>(R.id.attractionAddressTextView).text = attraction.address
                     findViewById<TextView>(R.id.attractionTelTextView).text = attraction.tel
                 }
 
-                if (attraction.images.isNotEmpty()) {
-                    // 取得第一張圖片的 URL
-                    val imageUrl = attraction.images[0].src
-                    // 使用 Picasso 載入圖片
-                    Picasso.get().load(imageUrl).into(attractionImageView)
-                } else {
-                    // 如果沒有圖片，則清除 ImageView 中的內容
-                    attractionImageView.setImageDrawable(null)
-                    // 設為不可見
-                    attractionImageView.visibility = View.GONE
-                }
-
-                // 檢查是否有電話號碼
                 if (attraction.tel.isEmpty()) {
-                    // 如果電話號碼為空，則設為不可見
                     attractionTelTextView.visibility = View.GONE
                 }
-                // 設置收藏圖標
+            }
+
+            private fun bindAttractionImage() {
+                if (attraction.images.isNotEmpty()) {
+                    val imageUrl = attraction.images[0].src
+                    Picasso.get().load(imageUrl).into(attractionImageView)
+                } else {
+                    attractionImageView.setImageDrawable(null)
+                    attractionImageView.visibility = View.GONE
+                }
+            }
+
+            private fun bindFavoriteButton() {
                 val favoriteIcon = if (isFavorite) R.drawable.heartred_wrapper else R.drawable.heart_wrapper
                 favoriteButton.setImageResource(favoriteIcon)
             }
         }
     }
 }
+
