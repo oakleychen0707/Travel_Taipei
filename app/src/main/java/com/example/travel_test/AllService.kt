@@ -15,8 +15,4 @@ interface NewsService {
     fun getNews(@Path("lang") lang: String, @Header("Accept") accept: String): Call<NewsResponse>
 }
 
-interface LanguageChangeListener {
-    fun onLanguageChanged(lang: String)
-}
-
 
