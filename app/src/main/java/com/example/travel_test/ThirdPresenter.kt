@@ -29,12 +29,7 @@ class ThirdPresenter(private val view: FragmentAttractions_1) : MainContract.Pre
                 call: Call<AttractionsResponse>,
                 response: Response<AttractionsResponse>
             ) {
-                if (response.isSuccessful) {
-                    val attractions = response.body()?.attractions ?: emptyList()
-                    view.showAttractions(attractions)
-                } else {
-                    view.showAttractionsError("Failed to fetch data")
-                }
+                handleAttractionsResponse(response)
             }
 
             override fun onFailure(call: Call<AttractionsResponse>, t: Throwable) {
@@ -43,11 +38,19 @@ class ThirdPresenter(private val view: FragmentAttractions_1) : MainContract.Pre
         })
     }
 
+    private fun handleAttractionsResponse(response: Response<AttractionsResponse>) {
+        if (response.isSuccessful) {
+            val attractions = response.body()?.attractions ?: emptyList()
+            view.showAttractions(attractions)
+        } else {
+            view.showAttractionsError("Failed to fetch data")
+        }
+    }
 
     override fun getNews(lang: String) {
         TODO("Not yet implemented")
     }
-
 }
+
 
 

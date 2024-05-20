@@ -25,7 +25,6 @@ class SecondPresenter(private val view: SecondActivity) : MainContract.Presenter
         TODO("Not yet implemented")
     }
 
-
     override fun getNews(lang: String) {
         val call = newservice.getNews(lang, "application/json")
 
@@ -47,7 +46,7 @@ class SecondPresenter(private val view: SecondActivity) : MainContract.Presenter
             }
         })
     }
-
 }
+
 
 
