@@ -17,16 +17,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
 class FourthActivity : AppCompatActivity() {
+
+    lateinit var lang: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fourth)
 
         supportActionBar?.hide() // 隱藏應用程式本身的ToolBar
 
-        val backButton = findViewById<ImageButton>(R.id.back_button)
-        backButton.setOnClickListener {
-            finish()
-        }
+        lang = intent.getStringExtra("lang") ?: "zh-tw"
 
         val favoriteAttractions = FavoritesManager.getFavorites()
 
@@ -39,10 +39,8 @@ class FourthActivity : AppCompatActivity() {
             favoriteView.adapter = FavoriteAdapter(favoriteAttractions)
         }
 
-        val lang = intent.getStringExtra("attractions_lang") ?: "zh-tw" // 使用預設值 "zh-tw" 避免空指標異常
-
         // 更新 Toolbar 的標題文字
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        val toolbar = findViewById<TextView>(R.id.toolbar_title)
         val titleMap = mapOf(
             "zh-tw" to "收藏項目",
             "zh-cn" to "收藏项目",
@@ -56,9 +54,17 @@ class FourthActivity : AppCompatActivity() {
 
         when (lang) {
             "zh-tw", "zh-cn", "en", "ja", "ko", "es", "th", "vi" -> {
-                toolbar.title = titleMap[lang]
+                toolbar.text = titleMap[lang]
             }
         }
+
+        val backButton = findViewById<ImageButton>(R.id.back_button)
+        backButton.setOnClickListener {
+            val resultIntent = Intent()
+            resultIntent.putExtra("attractions_lang", lang)
+            finish()
+        }
+
     }
 
     private fun showNoFavoritesDialog() {
@@ -67,15 +73,23 @@ class FourthActivity : AppCompatActivity() {
             .setMessage("請將「旅遊景點」加入收藏")
             .setPositiveButton("確認") { dialog, _ ->
                 dialog.dismiss()
-                navigateToThirdPage()
+                if (!isFinishing) {
+                    navigateToThirdPageWithLanguage(lang)
+                }
+            }
+            .setOnDismissListener {
+                if (!isFinishing) {
+                    navigateToThirdPageWithLanguage(lang)
+                }
             }
             .setCancelable(false)
             .show()
     }
 
-    private fun navigateToThirdPage() {
-        val intent = Intent(this, ThirdActivity::class.java)
-        startActivity(intent)
+
+    private fun navigateToThirdPageWithLanguage(lang: String) {
+        val resultIntent = Intent()
+        resultIntent.putExtra("attractions_lang", lang)
         finish()
     }
 

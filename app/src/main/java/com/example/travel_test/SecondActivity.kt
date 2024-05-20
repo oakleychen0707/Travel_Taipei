@@ -48,7 +48,7 @@ class SecondActivity : AppCompatActivity() {
         }
 
         // 更新 Toolbar 的標題文字
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        val toolbar = findViewById<TextView>(R.id.toolbar_title)
         val titleMap = mapOf(
             "zh-tw" to "最新消息",
             "zh-cn" to "最新消息",
@@ -59,17 +59,16 @@ class SecondActivity : AppCompatActivity() {
             "th" to "ข่าวล่าสุด",
             "vi" to "tin mới nhất"
         )
-
-        ToolbarHelper.setToolbarTexts(lang, findViewById(R.id.home), findViewById(R.id.news_detail), findViewById(R.id.attractions), findViewById(R.id.favorite_detail))
-
         when (lang) {
             "zh-tw", "zh-cn", "en", "ja", "ko", "es", "th", "vi" -> {
-                toolbar.title = titleMap[lang]
+                toolbar.text = titleMap[lang]
             }
         }
 
+        ToolbarHelper.setToolbarTexts(lang, findViewById(R.id.home), findViewById(R.id.news_detail), findViewById(R.id.attractions), findViewById(R.id.favorite_detail))
 
-        val pageButtonClickListener = PageButtonClickListener(this, supportFragmentManager, this::class.java, lang)
+
+        val pageButtonClickListener = PageButtonClickListener(this, this::class.java, lang)
         pageButtonClickListener.setupButtons(
             findViewById(R.id.page1),
             findViewById(R.id.page2),

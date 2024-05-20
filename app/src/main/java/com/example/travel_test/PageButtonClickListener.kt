@@ -7,7 +7,6 @@ import com.example.travel_test.*
 
 class PageButtonClickListener(
     private val context: Context,
-    private val supportFragmentManager: FragmentManager,
     private val currentActivity: Class<*>,
     private val lang: String // 新增 lang 參數
 ) {
@@ -15,7 +14,9 @@ class PageButtonClickListener(
         page1Button.setOnClickListener {
             if (currentActivity != MainActivity::class.java) {
                 Log.d("MainActivity", "page1 button clicked")
-                val intent = Intent(context, MainActivity::class.java)
+                val intent = Intent(context, MainActivity::class.java).apply {
+                    putExtra("lang", lang) // 使用傳遞過來的 lang 參數
+                }
                 context.startActivity(intent)
             }
         }
@@ -24,7 +25,7 @@ class PageButtonClickListener(
             if (currentActivity != SecondActivity::class.java) {
                 Log.d("MainActivity", "page2 button clicked")
                 val intent = Intent(context, SecondActivity::class.java).apply {
-                    putExtra("lang", lang) // 使用傳遞過來的 lang 參數
+                    putExtra("news_lang", lang) // 使用傳遞過來的 lang 參數
                 }
                 context.startActivity(intent)
             }
@@ -33,7 +34,9 @@ class PageButtonClickListener(
         page3Button.setOnClickListener {
             if (currentActivity != ThirdActivity::class.java) {
                 Log.d("MainActivity", "page3 button clicked")
-                val intent = Intent(context, ThirdActivity::class.java)
+                val intent = Intent(context, ThirdActivity::class.java).apply {
+                    putExtra("attractions_lang", lang) // 使用傳遞過來的 lang 參數
+                }
                 context.startActivity(intent)
             }
         }
@@ -41,7 +44,9 @@ class PageButtonClickListener(
         page4Button.setOnClickListener {
             if (currentActivity != FourthActivity::class.java) {
                 Log.d("MainActivity", "page4 button clicked")
-                val intent = Intent(context, FourthActivity::class.java)
+                val intent = Intent(context, FourthActivity::class.java).apply {
+                    putExtra("lang", lang) // 使用傳遞過來的 lang 參數
+                }
                 context.startActivity(intent)
             }
         }

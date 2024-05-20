@@ -52,7 +52,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             showLanguageMenu()
         }
 
-        val pageButtonClickListener = PageButtonClickListener(this, supportFragmentManager, this::class.java, lang)
+        setupPageButtonClickListener()
+    }
+
+    private fun setupPageButtonClickListener() {
+        val pageButtonClickListener = PageButtonClickListener(this, this::class.java, lang)
         pageButtonClickListener.setupButtons(
             findViewById(R.id.page1),
             findViewById(R.id.page2),
@@ -147,6 +151,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 }
             }
             ToolbarHelper.setToolbarTexts(lang, findViewById(R.id.home), findViewById(R.id.news_detail), findViewById(R.id.attractions), findViewById(R.id.favorite_detail))
+            setupPageButtonClickListener()
             true
         }
         popupMenu.show()
