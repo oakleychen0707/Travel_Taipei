@@ -41,7 +41,7 @@ class ThirdActivity : AppCompatActivity() {
     }
 
     private fun setupLanguage() {
-        val lang = intent.getStringExtra("attractions_lang") ?: "zh-tw" // 使用預設值 "zh-tw" 避免空指標異常
+        val lang = intent.getStringExtra("lang") ?: "zh-tw" // 使用預設值 "zh-tw" 避免空指標異常
         val pageButtonClickListener = PageButtonClickListener(this, this::class.java, lang)
         pageButtonClickListener.setupButtons(
             findViewById(R.id.page1),
@@ -52,7 +52,7 @@ class ThirdActivity : AppCompatActivity() {
     }
 
     private fun setupToolbarText() {
-        val lang = intent.getStringExtra("attractions_lang") ?: "zh-tw"
+        val lang = intent.getStringExtra("lang") ?: "zh-tw"
         val titleMap = mapOf(
             "zh-tw" to "旅遊景點",
             "zh-cn" to "旅游景点",
@@ -70,10 +70,10 @@ class ThirdActivity : AppCompatActivity() {
     }
 
     private fun createAttractionsFragment(): Fragment {
-        val lang = intent.getStringExtra("attractions_lang") ?: "zh-tw"
+        val lang = intent.getStringExtra("lang") ?: "zh-tw"
         val fragment = FragmentAttractions_1()
         val bundle = Bundle().apply {
-            putString("attractions_lang", lang)
+            putString("lang", lang)
         }
         fragment.arguments = bundle
         return fragment

@@ -52,12 +52,12 @@ class SecondActivity : AppCompatActivity() {
         if (!NetworkUtils.isNetworkConnected(this)) {
             NetworkUtils.showNetworkErrorDialog(this)
         } else {
-            presenter.getNews(intent.getStringExtra("news_lang") ?: "zh-tw")
+            presenter.getNews(intent.getStringExtra("lang") ?: "zh-tw")
         }
     }
 
     private fun setupLanguageToolbar() {
-        val lang = intent.getStringExtra("news_lang") ?: "zh-tw"
+        val lang = intent.getStringExtra("lang") ?: "zh-tw"
         val toolbar = findViewById<TextView>(R.id.toolbar_title)
         val titleMap = mapOf(
             "zh-tw" to "最新消息",
@@ -74,7 +74,7 @@ class SecondActivity : AppCompatActivity() {
     }
 
     private fun setupPageButtons() {
-        val pageButtonClickListener = PageButtonClickListener(this, this::class.java, intent.getStringExtra("news_lang") ?: "zh-tw")
+        val pageButtonClickListener = PageButtonClickListener(this, this::class.java, intent.getStringExtra("lang") ?: "zh-tw")
         pageButtonClickListener.setupButtons(
             findViewById(R.id.page1),
             findViewById(R.id.page2),

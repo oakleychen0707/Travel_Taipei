@@ -21,7 +21,7 @@ class FragmentAttractions_1 : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val lang = arguments?.getString("attractions_lang", "zh-tw") ?: "zh-tw"
+        val lang = arguments?.getString("lang", "zh-tw") ?: "zh-tw"
         presenter = ThirdPresenter(this)
         if (!NetworkUtils.isNetworkConnected(requireActivity())) {
             NetworkUtils.showNetworkErrorDialog(requireActivity())

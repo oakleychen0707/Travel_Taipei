@@ -236,7 +236,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
             fun NewsItem.createNewsIntent_all(context: Context): Intent {
                 return Intent(context, SecondActivity::class.java).apply {
-                    putExtra("news_lang", lang)
+                    putExtra("lang", lang)
                 }
             }
 
@@ -315,7 +315,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
             fun Attraction.createAttractionIntent_all(context: Context): Intent {
                 return Intent(context, ThirdActivity::class.java).apply {
-                    putExtra("attractions_lang", lang)
+                    putExtra("lang", lang)
                 }
             }
 

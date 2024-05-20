@@ -81,7 +81,7 @@ class FourthActivity : AppCompatActivity() {
 
     private fun navigateToThirdPageWithLanguage(lang: String) {
         val resultIntent = Intent()
-        resultIntent.putExtra("attractions_lang", lang)
+        resultIntent.putExtra("lang", lang)
         finish()
     }
 
