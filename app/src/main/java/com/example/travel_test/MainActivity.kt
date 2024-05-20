@@ -21,7 +21,7 @@ import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
-    var lang = "zh-tw"
+    lateinit var lang: String
 
     private lateinit var presenter: MainContract.Presenter
     private lateinit var exchangeLanguageButton: ImageButton
@@ -32,20 +32,19 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         supportActionBar?.hide() //隱藏應用程式本身的ToolBar
 
+        lang = intent.getStringExtra("lang") ?: "zh-tw"
+        setupToolbarTexts(lang)
+
         val page1Button = findViewById<ImageButton>(R.id.page1)
         page1Button.setImageResource(R.drawable.home)
         val newsDetail = findViewById<TextView>(R.id.home)
         newsDetail.setTextColor(Color.parseColor("#00939F"))
 
+
         presenter = MainPresenter(this)
 
         // 檢查網路連接
-        if (!NetworkUtils.isNetworkConnected(this)) {
-            NetworkUtils.showNetworkErrorDialog(this)
-        }else {
-            presenter.getAttractions(lang)
-            presenter.getNews(lang)
-        }
+        setupNetworkRequests()
 
         exchangeLanguageButton = findViewById(R.id.exchange_language) // 初始化按鈕
         exchangeLanguageButton.setOnClickListener {
@@ -53,6 +52,74 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         }
 
         setupPageButtonClickListener()
+    }
+
+    private fun setupToolbarTexts(lang: String) {
+        // 更新 Toolbar 的標題文字
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        val titleMap = mapOf(
+            "zh-tw" to "臺北旅遊",
+            "zh-cn" to "台北旅游",
+            "en" to "Taipei travel",
+            "ja" to "台北旅行",
+            "ko" to "타이페이 여행",
+            "es" to "Viaje a Taipéi",
+            "th" to "เที่ยวไทเป",
+            "vi" to "Du lịch Đài Bắc"
+        )
+
+        val newsMap = mapOf(
+            "zh-tw" to "最新消息",
+            "zh-cn" to "最新消息",
+            "en" to "Latest News",
+            "ja" to "最新ニュース",
+            "ko" to "최신 뉴스",
+            "es" to "Noticias recientes",
+            "th" to "ข่าวล่าสุด",
+            "vi" to "tin mới nhất"
+        )
+
+        val attractionsMap = mapOf(
+            "zh-tw" to "旅遊景點",
+            "zh-cn" to "旅游景点",
+            "en" to "Tourist Attractions",
+            "ja" to "観光名所",
+            "ko" to "관광 명소",
+            "es" to "Atracciones Turísticas",
+            "th" to "สถานที่ท่องเที่ยว",
+            "vi" to "điểm thu hút khách du lịch"
+        )
+
+        val moreButtonMap = mapOf(
+            "zh-tw" to "更多",
+            "zh-cn" to "更多",
+            "en" to "More",
+            "ja" to "もっと",
+            "ko" to "더",
+            "es" to "Más",
+            "th" to "มากกว่า",
+            "vi" to "Hơn"
+        )
+
+        when (lang) {
+            "zh-tw", "zh-cn", "en", "ja", "ko", "es", "th", "vi" -> {
+                toolbar.title = titleMap[lang]
+                findViewById<TextView>(R.id.news).text = newsMap[lang]
+                findViewById<TextView>(R.id.attractions_title).text = attractionsMap[lang]
+                findViewById<TextView>(R.id.moreButton).text = moreButtonMap[lang]
+                findViewById<TextView>(R.id.moreButton2).text = moreButtonMap[lang]
+            }
+        }
+        ToolbarHelper.setToolbarTexts(lang, findViewById(R.id.home), findViewById(R.id.news_detail), findViewById(R.id.attractions), findViewById(R.id.favorite_detail))
+    }
+
+    private fun setupNetworkRequests() {
+        if (!NetworkUtils.isNetworkConnected(this)) {
+            NetworkUtils.showNetworkErrorDialog(this)
+        } else {
+            presenter.getAttractions(lang)
+            presenter.getNews(lang)
+        }
     }
 
     private fun setupPageButtonClickListener() {
@@ -92,65 +159,9 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         popupMenu.setOnMenuItemClickListener { menuItem ->
             val selectedLang = langMap[menuItem.itemId] ?: lang
             lang = selectedLang
-            presenter.getAttractions(lang) // 更新 API 請求的語言
+            presenter.getAttractions(lang)
             presenter.getNews(lang)
-
-            // 更新 Toolbar 的標題文字
-            val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-            val titleMap = mapOf(
-                "zh-tw" to "臺北旅遊",
-                "zh-cn" to "台北旅游",
-                "en" to "Taipei travel",
-                "ja" to "台北旅行",
-                "ko" to "타이페이 여행",
-                "es" to "Viaje a Taipéi",
-                "th" to "เที่ยวไทเป",
-                "vi" to "Du lịch Đài Bắc"
-            )
-
-            val newsMap = mapOf(
-                "zh-tw" to "最新消息",
-                "zh-cn" to "最新消息",
-                "en" to "Latest News",
-                "ja" to "最新ニュース",
-                "ko" to "최신 뉴스",
-                "es" to "Noticias recientes",
-                "th" to "ข่าวล่าสุด",
-                "vi" to "tin mới nhất"
-            )
-
-            val attractionsMap = mapOf(
-                "zh-tw" to "旅遊景點",
-                "zh-cn" to "旅游景点",
-                "en" to "Tourist Attractions",
-                "ja" to "観光名所",
-                "ko" to "관광 명소",
-                "es" to "Atracciones Turísticas",
-                "th" to "สถานที่ท่องเที่ยว",
-                "vi" to "điểm thu hút khách du lịch"
-            )
-
-            val moreButtonMap = mapOf(
-                "zh-tw" to "更多",
-                "zh-cn" to "更多",
-                "en" to "More",
-                "ja" to "もっと",
-                "ko" to "더",
-                "es" to "Más",
-                "th" to "มากกว่า",
-                "vi" to "Hơn"
-            )
-
-            when (lang) {
-                "zh-tw", "zh-cn", "en", "ja", "ko", "es", "th", "vi" -> {
-                    toolbar.title = titleMap[lang]
-                    findViewById<TextView>(R.id.news).text = newsMap[lang]
-                    findViewById<TextView>(R.id.attractions_title).text = attractionsMap[lang]
-                    findViewById<TextView>(R.id.moreButton).text = moreButtonMap[lang]
-                    findViewById<TextView>(R.id.moreButton2).text = moreButtonMap[lang]
-                }
-            }
-            ToolbarHelper.setToolbarTexts(lang, findViewById(R.id.home), findViewById(R.id.news_detail), findViewById(R.id.attractions), findViewById(R.id.favorite_detail))
+            setupToolbarTexts(lang)
             setupPageButtonClickListener()
             true
         }
@@ -339,6 +350,5 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             }
         }
     }
-
 }
 
