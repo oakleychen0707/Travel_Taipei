@@ -1,5 +1,6 @@
 package com.example.travel_test
 
+import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -18,28 +19,30 @@ import com.squareup.picasso.Picasso
 
 class FourthActivity : AppCompatActivity() {
 
-    lateinit var lang: String
+    private lateinit var lang: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fourth)
-
         supportActionBar?.hide() // 隱藏應用程式本身的ToolBar
-
         lang = intent.getStringExtra("lang") ?: "zh-tw"
+        setupFavoritesView()
+        setupToolbar()
+        setupBackButton()
+    }
 
+    private fun setupFavoritesView() {
         val favoriteAttractions = FavoritesManager.getFavorites()
-
         if (favoriteAttractions.isEmpty()) {
             showNoFavoritesDialog()
         } else {
-            // 設置 RecyclerView
             val favoriteView = findViewById<RecyclerView>(R.id.favoriteView_all)
             favoriteView.layoutManager = LinearLayoutManager(this)
             favoriteView.adapter = FavoriteAdapter(favoriteAttractions)
         }
+    }
 
-        // 更新 Toolbar 的標題文字
+    private fun setupToolbar() {
         val toolbar = findViewById<TextView>(R.id.toolbar_title)
         val titleMap = mapOf(
             "zh-tw" to "收藏項目",
@@ -51,20 +54,16 @@ class FourthActivity : AppCompatActivity() {
             "th" to "รายการคอลเลกชัน",
             "vi" to "Vật phẩm sưu tập"
         )
-
-        when (lang) {
-            "zh-tw", "zh-cn", "en", "ja", "ko", "es", "th", "vi" -> {
-                toolbar.text = titleMap[lang]
-            }
+        if (lang in titleMap) {
+            toolbar.text = titleMap[lang]
         }
+    }
 
+    private fun setupBackButton() {
         val backButton = findViewById<ImageButton>(R.id.back_button)
         backButton.setOnClickListener {
-            val resultIntent = Intent()
-            resultIntent.putExtra("attractions_lang", lang)
-            finish()
+            navigateToThirdPageWithLanguage(lang)
         }
-
     }
 
     private fun showNoFavoritesDialog() {
@@ -73,19 +72,14 @@ class FourthActivity : AppCompatActivity() {
             .setMessage("請將「旅遊景點」加入收藏")
             .setPositiveButton("確認") { dialog, _ ->
                 dialog.dismiss()
-                if (!isFinishing) {
-                    navigateToThirdPageWithLanguage(lang)
-                }
+                navigateToThirdPageWithLanguage(lang)
             }
             .setOnDismissListener {
-                if (!isFinishing) {
-                    navigateToThirdPageWithLanguage(lang)
-                }
+                navigateToThirdPageWithLanguage(lang)
             }
             .setCancelable(false)
             .show()
     }
-
 
     private fun navigateToThirdPageWithLanguage(lang: String) {
         val resultIntent = Intent()
@@ -93,7 +87,7 @@ class FourthActivity : AppCompatActivity() {
         finish()
     }
 
-    class FavoriteAdapter(private val favoriteAttractions: List<Attraction>) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
+    inner class FavoriteAdapter(private val favoriteAttractions: List<Attraction>) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_attraction, parent, false)
@@ -101,29 +95,23 @@ class FourthActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
-            val attraction = favoriteAttractions[position]
-            holder.bind(attraction, position)
+            holder.bind(favoriteAttractions[position])
         }
 
         override fun getItemCount(): Int {
             return favoriteAttractions.size
         }
 
-        class FavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        inner class FavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             private val attractionImageView: ImageView = itemView.findViewById(R.id.attractionImageView)
             private val attractionTelTextView: TextView = itemView.findViewById(R.id.attractionTelTextView)
-            private val favoriteButton: ImageButton = itemView.findViewById(R.id.favoriteButton)
-            private lateinit var attraction: Attraction
 
             init {
                 itemView.setOnClickListener {
-                    if (::attraction.isInitialized) {
-                        val intent = attraction.createAttractionIntent(itemView.context)
-                        itemView.context.startActivity(intent)
-                    }
+                    val attraction = favoriteAttractions[adapterPosition]
+                    val intent = attraction.createAttractionIntent(itemView.context)
+                    itemView.context.startActivity(intent)
                 }
-
-                favoriteButton.visibility = View.GONE
             }
 
             fun Attraction.createAttractionIntent(context: Context): Intent {
@@ -142,9 +130,7 @@ class FourthActivity : AppCompatActivity() {
                 }
             }
 
-            fun bind(attraction: Attraction, position: Int) {
-                this.attraction = attraction
-
+            fun bind(attraction: Attraction) {
                 with(itemView) {
                     findViewById<TextView>(R.id.attractionNameTextView).text = attraction.name
                     findViewById<TextView>(R.id.attractionAddressTextView).text = attraction.address
@@ -152,20 +138,14 @@ class FourthActivity : AppCompatActivity() {
                 }
 
                 if (attraction.images.isNotEmpty()) {
-                    // 取得第一張圖片的 URL
                     val imageUrl = attraction.images[0].src
-                    // 使用 Picasso 載入圖片
                     Picasso.get().load(imageUrl).into(attractionImageView)
                 } else {
-                    // 如果沒有圖片，則清除 ImageView 中的內容
                     attractionImageView.setImageDrawable(null)
-                    // 設為不可見
                     attractionImageView.visibility = View.GONE
                 }
 
-                // 檢查是否有電話號碼
                 if (attraction.tel.isEmpty()) {
-                    // 如果電話號碼為空，則設為不可見
                     attractionTelTextView.visibility = View.GONE
                 }
             }
