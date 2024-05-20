@@ -23,6 +23,22 @@ class AttractionsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_attractions)
         supportActionBar?.hide()
 
+        initView()
+
+        bindDataToViews()
+
+        setListeners()
+
+        handleImagePagerVisibility()
+    }
+
+    private fun initView() {
+        viewPager = findViewById(R.id.viewPager)
+        arrowLeft = findViewById(R.id.arrowLeft)
+        arrowRight = findViewById(R.id.arrowRight)
+    }
+
+    private fun bindDataToViews() {
         val viewsMap = mapOf(
             "attraction_name" to R.id.attractionNameTextView,
             "attraction_introduction" to R.id.attractionIntroductionTextView,
@@ -34,48 +50,32 @@ class AttractionsActivity : AppCompatActivity() {
             "attraction_facebook" to R.id.attractionFacebookTextView
         )
 
-        val officialSiteUrl = intent.getStringExtra("attraction_official_site")
-        val officialSiteTextView = findViewById<TextView>(R.id.attractionOfficial_siteTextView)
-        officialSiteTextView.text = officialSiteUrl
-
-        officialSiteTextView.setOnClickListener {
-            val officialSiteUrl = officialSiteTextView.text.toString()
-            openWebView(officialSiteUrl)
-        }
-
-        viewPager = findViewById(R.id.viewPager)
-        arrowLeft = findViewById(R.id.arrowLeft)
-        arrowRight = findViewById(R.id.arrowRight)
-
-        attractionImageUrlsAll = intent.getStringArrayListExtra("attraction_image_urls_all") ?: ArrayList()
-
-        viewPager.adapter = ImagePagerAdapter(attractionImageUrlsAll)
-
-        arrowLeft.visibility = View.GONE //點進去為第一張照片
-
-        arrowLeft.setOnClickListener {
-            if (currentPosition > 0) {
-                currentPosition--
-                viewPager.setCurrentItem(currentPosition, true)
-                arrowLeft.visibility = if (currentPosition == 0) View.GONE else View.VISIBLE
-                arrowRight.visibility = View.VISIBLE
-            }
-        }
-
-        arrowRight.setOnClickListener {
-            if (currentPosition < attractionImageUrlsAll.size - 1) {
-                currentPosition++
-                viewPager.setCurrentItem(currentPosition, true)
-                arrowRight.visibility = if (currentPosition == attractionImageUrlsAll.size - 1) View.GONE else View.VISIBLE
-                arrowLeft.visibility = View.VISIBLE
-            }
-        }
-
         for ((attractionKey, viewId) in viewsMap) {
             val attrValue = intent.getStringExtra(attractionKey)
             findViewById<TextView>(viewId).applyVisibility(attrValue)
         }
 
+        val officialSiteUrl = intent.getStringExtra("attraction_official_site")
+        findViewById<TextView>(R.id.attractionOfficial_siteTextView).text = officialSiteUrl
+    }
+
+    private fun setListeners() {
+        arrowLeft.setOnClickListener {
+            navigateImagePager(-1)
+        }
+
+        arrowRight.setOnClickListener {
+            navigateImagePager(1)
+        }
+
+        val attractionOfficialSiteTextView = findViewById<View>(R.id.attractionOfficial_siteTextView) as? TextView
+        attractionOfficialSiteTextView?.setOnClickListener {
+            openWebView(attractionOfficialSiteTextView.text.toString())
+        }
+    }
+
+    private fun handleImagePagerVisibility() {
+        attractionImageUrlsAll = intent.getStringArrayListExtra("attraction_image_urls_all") ?: ArrayList()
         if (attractionImageUrlsAll.isNullOrEmpty()) {
             viewPager.visibility = View.GONE
             arrowLeft.visibility = View.GONE
@@ -85,11 +85,21 @@ class AttractionsActivity : AppCompatActivity() {
         }
     }
 
+    private fun navigateImagePager(direction: Int) {
+        val newPosition = currentPosition + direction
+        if (newPosition >= 0 && newPosition < attractionImageUrlsAll.size) {
+            currentPosition = newPosition
+            viewPager.setCurrentItem(currentPosition, true)
+            arrowLeft.visibility = if (currentPosition == 0) View.GONE else View.VISIBLE
+            arrowRight.visibility = if (currentPosition == attractionImageUrlsAll.size - 1) View.GONE else View.VISIBLE
+        }
+    }
+
     private fun TextView.applyVisibility(text: String?) {
         if (text.isNullOrEmpty()) {
-            this.visibility = View.GONE
+            visibility = View.GONE
         } else {
-            this.visibility = View.VISIBLE
+            visibility = View.VISIBLE
             this.text = text
         }
     }
@@ -100,6 +110,8 @@ class AttractionsActivity : AppCompatActivity() {
         startActivity(intent)
     }
 }
+
+
 
 
 
