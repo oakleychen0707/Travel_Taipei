@@ -1,6 +1,10 @@
 # Travel_Taipei
 串接台北旅遊網 Open API
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Foakleychen0707%2FTravel_Taipei&count_bg=%23473DC8&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+
 ## 專案內容
+
 #### 1. 首頁顯示「最新消息」與「旅遊景點」
 <img src= https://github.com/oakleychen0707/Travel_Taipei/assets/98889131/6849468c-c669-40da-99bd-d0b83bcbb033 width="20%" height="20%">
 <img src= https://github.com/oakleychen0707/Travel_Taipei/assets/98889131/165754b0-4ed1-4959-a506-f8e8e9410490 width="20%" height="20%">
